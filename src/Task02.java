@@ -31,7 +31,6 @@ public class Task02 {
             if (myHashMap.containsValue(i)) {
                 for (String item:myHashMap.keySet()
                      ) {
-
                     int currentValue = myHashMap.get(item);
                     if (currentValue == i) {
                         System.out.println(String.format("%s - %d", item, currentValue));
