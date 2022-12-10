@@ -1,75 +1,54 @@
-////Реализовать алгоритм пирамидальной сортировки (HeapSort). https://habr.com/ru/company/otus/blog/460087/
-//
-//
-//public class Task03 {
-//    // Реализация пирамидальной сортировки на Java
-//        public void sort(int arr[])
-//        {
-//            int n = arr.length;
-//
-//            // Построение кучи (перегруппируем массив)
-//            for (int i = n / 2 - 1; i >= 0; i--)
-//                heapify(arr, n, i);
-//
-//            // Один за другим извлекаем элементы из кучи
-//            for (int i=n-1; i>=0; i--)
-//            {
-//                // Перемещаем текущий корень в конец
-//                int temp = arr[0];
-//                arr[0] = arr[i];
-//                arr[i] = temp;
-//
-//                // Вызываем процедуру heapify на уменьшенной куче
-//                heapify(arr, i, 0);
-//            }
-//        }
-//
-//        // Процедура для преобразования в двоичную кучу поддерева с корневым узлом i, что является
-//// индексом в arr[]. n - размер кучи
-//        void heapify(int arr[], int n, int i)
-//        {
-//            int largest = i; // Инициализируем наибольший элемент как корень
-//            int l = 2*i + 1; // левый = 2*i + 1
-//            int r = 2*i + 2; // правый = 2*i + 2
-//
-//            // Если левый дочерний элемент больше корня
-//            if (l < n && arr[l] > arr[largest])
-//                largest = l;
-//
-//            // Если правый дочерний элемент больше, чем самый большой элемент на данный момент
-//            if (r < n && arr[r] > arr[largest])
-//                largest = r;
-//            // Если самый большой элемент не корень
-//            if (largest != i)
-//            {
-//                int swap = arr[i];
-//                arr[i] = arr[largest];
-//                arr[largest] = swap;
-//
-//                // Рекурсивно преобразуем в двоичную кучу затронутое поддерево
-//                heapify(arr, n, largest);
-//            }
-//        }
-//
-//        /* Вспомогательная функция для вывода на экран массива размера n */
-//        static void printArray(int arr[])
-//        {
-//            int n = arr.length;
-//            for (int i=0; i<n; ++i)
-//                System.out.print(arr[i]+" ");
-//            System.out.println();
-//        }
-//
-//        // Управляющая программа
-//        public static void main(String args[])
-//        {
-//            int arr[] = {12, 11, 13, 5, 6, 7};
-//            int n = arr.length;
-//
-//            HeapSort ob = new HeapSort();
-//            ob.sort(arr);
-//
-//            System.out.println("Sorted array is");
-//            printArray(arr);
-//        }
-//}
+import java.util.Arrays;
+
+public class Task03 {
+
+    public static void main(String[] args) {
+        int[] myArray = {12, 11, 312, 13, 25, 66, 7, 8, 123, 2};
+        System.out.println(Arrays.toString(myArray));
+        myArray = heapSort(myArray);
+        System.out.println(Arrays.toString(myArray));
+
+    }
+
+    public static int[] heapSort(int myArray[])
+    {
+        int myLength = myArray.length;
+
+        for (int i = myLength / 2 - 1; i >= 0; i--) {
+            createHeap(myArray, myLength, i);
+        }
+
+        for (int i = myLength-1; i >= 0; i--)
+        {
+            int temp = myArray[0];
+            myArray[0] = myArray[i];
+            myArray[i] = temp;
+
+            createHeap(myArray, i, 0);
+        }
+        return myArray;
+    }
+
+
+    public static void createHeap(int myArray[], int myLength, int i)
+    {
+        int largest = i;
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
+
+        if (left < myLength && myArray[left] > myArray[largest])
+            largest = left;
+
+        if (right < myLength && myArray[right] > myArray[largest])
+            largest = right;
+
+        if (largest != i)
+        {
+            int temp = myArray[i];
+            myArray[i] = myArray[largest];
+            myArray[largest] = temp;
+            createHeap(myArray, myLength, largest);
+        }
+    }
+
+}
